@@ -13,14 +13,11 @@ module.exports = (bot) => {
     `,
             {
                 reply_markup: {
-                    inline_keyboard: [
-                        [
-                            { text: "💌 Комплимент", callback_data: "compliment" }
-                        ],
-                        [
-                            { text: "🌙 Пожелание", callback_data: "wish" }
-                        ]
-                    ]
+                    keyboard: [
+                        ["💌 Получить комплимент"],
+                        ["🌙 Получить пожелание"]
+                    ],
+                    resize_keyboard: true
                 }
             }
         );

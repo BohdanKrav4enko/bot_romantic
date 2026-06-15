@@ -9,18 +9,24 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 require("./utils/start")(bot);
 startDailyCompliment(bot);
 
-bot.on("callback_query", async (ctx) => {
-    const action = ctx.callbackQuery.data;
+bot.hears("💌 Получить комплимент", async (ctx) => {
+    await ctx.reply("💭 думаю о тебе...");
+    await ctx.sendChatAction("typing");
 
-    if (action === "compliment") {
-        await ctx.answerCbQuery();
-        ctx.reply(await generateCompliment());
-    }
+    await new Promise(r => setTimeout(r, 1200));
 
-    if (action === "wish") {
-        await ctx.answerCbQuery();
-        ctx.reply(await generateWish());
-    }
+    const text = await generateCompliment();
+    ctx.reply(text);
+});
+
+bot.hears("🌙 Получить пожелание", async (ctx) => {
+    await ctx.reply("🌙 подбираю слова...");
+    await ctx.sendChatAction("typing");
+
+    await new Promise(r => setTimeout(r, 1200));
+
+    const text = await generateWish();
+    ctx.reply(text);
 });
 
 bot.launch();
